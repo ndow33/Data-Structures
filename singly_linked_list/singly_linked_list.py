@@ -31,11 +31,6 @@ class LinkedList:
             # set the head and the tail to new node
             self.head = new_node
             self.tail = new_node
-        # check if there is only one node
-        elif self.head.get_next() is None and self.tail.get_next() is None:
-            # set the next node to the tail
-            self.head.set_next(new_node)
-            self.tail = new_node
         else:
             self.tail.set_next(new_node)
             self.tail = new_node
@@ -48,22 +43,20 @@ class LinkedList:
     def remove_head(self):
         # check if there is no head
         if self.head is None:
-            self.head = None
-            self.tail = None
             return None
         # does our head have a next value?
         # if not, there is only one element in the list
-        elif self.head.get_next() is None:
+        if self.head.get_next() is None:
             head = self.head
             self.head = None
             self.tail = None
             return head.get_value()
-        else:
-            value = self.head.get_value()
-            # set the head reference to the current head's next node in the list
-            self.head = self.head.get_next()
-            # return value
-            return value
+        
+        value = self.head.get_value()
+        # set the head reference to the current head's next node in the list
+        self.head = self.head.get_next()
+        # return value
+        return value
 
 
 
@@ -72,21 +65,21 @@ class LinkedList:
     def remove_tail(self):
         # if we have an empty linked list
         if self.head is None:
-            self.head = None
-            self.tail = None
             return None
         # does our head have a next value?
         # if not, there is only one element in the list
-        elif self.head.get_next() is None:
-            head = self.head
+        if self.head.get_next() is None:
+            value = self.head.get_value()
             self.head = None
             self.tail = None
-            return head.get_value()
-        else:
-            current = self.head
-            while current.get_next() is not self.tail:
-                current = current.get_next()
-            val = self.tail.get_value()
-            self.tail = current
-            current.set_next(None)
-            return val
+            return value
+        
+        current = self.head
+
+        while current.get_next() is not self.tail:
+            current = current.get_next()
+
+        value = self.tail.get_value()
+        self.tail = current
+        current.set_next(None)
+        return value

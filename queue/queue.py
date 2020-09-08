@@ -6,58 +6,48 @@ return elements in First In First Out order.
    Make sure the Queue tests pass.
 
 class Queue:
-    def __init__(self, size = 0):
+    def __init__(self):
         self.size = 0
         self.storage = []
     
     def __len__(self):
-        return len(self.storage)
+        return self.size
 
     def enqueue(self, value):
-        return self.storage.insert(0, value)
+        self.storage.append(value)
+        self.size += 1
 
     def dequeue(self):
-        if len(self.storage)>=1:
-            return self.storage.pop()
-        else:
-            return
+        if self.size == 0:
+            return None
+        self.size -= 1
+        return self.storage.pop(0)
 """
 """
 2. Re-implement the Queue class, this time using the linked list implementation
    as the underlying storage structure.
    Make sure the Queue tests pass."""
-from singly_linked_list import Node
+import sys
+sys.path.append('../singly_linked_list/')
+from singly_linked_list import LinkedList
 
 class Queue:
     def __init__(self):
-        self.head = None
-        self.tail = None
+        self.size = 0
+        self.storage = LinkedList()
     
     def __len__(self):
-        if self.head is None and self.tail is None:
-            return 0
-        else:
-            current = self.head
-            counter = 1
-            while current.get_next() is not None:
-                counter += 1
-                current = current.get_next()
-
-            return counter
+        return self.size
 
     def enqueue(self, value):
-        # store the value of head
-        old_head = self.head
-        # set the value of head to the input value
-        self.head = value
-        # set the value after head to the previous value of the head
-        self.head.next = old_head
+        self.storage.add_to_tail(value)
+        self.size += 1
 
     def dequeue(self):
-        if len(self.storage)>=1:
-            return self.storage.pop()
-        else:
-            return
+        if self.size == 0:
+            return None
+        self.size -= 1
+        return self.storage.remove_head()
 
 """"
 3. What is the difference between using an array vs. a linked list when 
