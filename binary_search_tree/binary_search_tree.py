@@ -28,7 +28,7 @@ class BSTNode:
                 # and set it equal to value
                 node = BSTNode(value)
                 self.right = node
-            # otherwise, repeat the equation recursively
+            # otherwise repeat the equation recursively on the next node
             else:
                 self.right.insert(value)
         else:
@@ -37,7 +37,7 @@ class BSTNode:
                 # and set it equal to value
                 node = BSTNode(value)
                 self.left = node
-            # otherwise, repeat the equation recursively
+            # otherwise repeat the equation recursively on the next node
             else:
                 self.left.insert(value)
             
@@ -46,15 +46,50 @@ class BSTNode:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        # if self.value is target
+        if self.value is target:
+            return True
+        # move right?
+        if target > self.value:
+            # is there a node to the right?
+            if self.right is None:
+                return False
+            else:
+                # otherwise repeat the equation recursively on the next node
+                return self.right.contains(target)
+        # move left
+        if target < self.value:
+            # is there a node to the left?
+            if self.left is None:
+                return False
+            else:
+                # otherwise repeat the equation recursively on the next node
+                return self.left.contains(target)
+
+        
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        # is there one node?
+        if self.right is None:
+            # return the only value in the tree
+            return self.value
+        else:
+            return self.right.get_max()
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        # run the function on the current node
+        fn(self.value)
+        # Does the current node have a left?
+        if self.left is not None:
+            # repeat this method recursively
+            self.left.for_each(fn)
+        # Does the current node have a right?
+        if self.right is not None:
+            # repeat this metod recursively
+            self.right.for_each(fn)
+        return
 
     # Part 2 -----------------------
 
