@@ -14,10 +14,34 @@ class BSTNode:
         self.value = value
         self.left = None
         self.right = None
+    
+    def __str__(self):
+        return f'Value: {self.value}, Left: {self.left}, Right: {self.right}'
 
     # Insert the given value into the tree
-    def insert(self, value):
-        pass
+    def insert(self, value):        
+        # if value is greater than or equal to self.value
+        if value >= self.value:
+            # if self.right is None
+            if self.right is None:
+                # create a new node with the value
+                # and set it equal to value
+                node = BSTNode(value)
+                self.right = node
+            # otherwise, repeat the equation recursively
+            else:
+                self.right.insert(value)
+        else:
+            if self.left is None:
+                # create a new node with the value
+                # and set it equal to value
+                node = BSTNode(value)
+                self.left = node
+            # otherwise, repeat the equation recursively
+            else:
+                self.left.insert(value)
+            
+        
 
     # Return True if the tree contains the value
     # False if it does not
@@ -62,7 +86,7 @@ class BSTNode:
 
 """
 This code is necessary for testing the `print` methods
-"""
+
 bst = BSTNode(1)
 
 bst.insert(8)
@@ -83,3 +107,4 @@ print("in order")
 bst.in_order_dft()
 print("post order")
 bst.post_order_dft()  
+"""
