@@ -20,6 +20,8 @@ class LinkedList:
         self.tail = None
 
 
+    def __str__(self):
+        return f'Linked List, Head: {self.head}, Tail: {self.tail}'
 
 
 
